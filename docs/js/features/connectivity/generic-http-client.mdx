@@ -13,6 +13,8 @@ keywords:
 ---
 
 import LinkToLatestJsApiDocs from '../../../../src/sap/sdk-js/LinkToLatestJsApiDocs';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 ## What Is the Generic HTTP Client?
 
@@ -65,20 +67,42 @@ The `destination` argument is either a full <LinkToLatestJsApiDocs slug="interfa
 In the latter case, the SAP Cloud SDK fetches the destination for you.
 To learn more, check the [destination documentation](destination.mdx). It provides more details about the `JWT` parameter.
 The <LinkToLatestJsApiDocs slug="interfaces/sap_cloud_sdk_core.HttpRequestConfig" name="request configuration" /> argument contains the request configuration.
-A minimal configuration would look like this:
+A request configuration would look like this, where the `method` is mandatory:
 
-```JSON
-{
-  method: 'get',
-  params: {
-    a: 'a',
-    b: 'b'
-  },
-  ...
-}
-```
+<Tabs groupId="version" defaultValue="major" values={[ { label: 'SDK 2.x', value: 'major' }, { label: 'SDK 1.x', value: 'deprecated' } ]}>
+<TabItem value="major">
 
-Note that you can also give values for `url` in the request configuration.
+    ```JSON
+    {
+        method: 'get',
+        url: 'my-url',
+        params: {
+          requestConfig: {
+            a: 'a',
+            b: 'b'
+          }
+        },
+        ...
+    }
+    ```
+
+</TabItem>
+<TabItem value="deprecated">
+
+    ```JSON
+    {
+        method: 'get',
+        url: 'my-url',
+        params: {
+          a: 'a',
+          b: 'b'
+        },
+        ...
+    }
+    ```
+
+</TabItem>
+</Tabs>
 The values you give in the request configuration [will be merged](https://github.com/SAP/cloud-sdk-js/blob/main/packages/core/src/http-client/http-client.ts#L136-L148) with ones related to the destination:
 
 ```ts
